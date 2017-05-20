@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
 
 
     //Animator
-    //private Animator anim;
+    Animator anim;
+    Animation animation;
     
 
 
@@ -36,8 +37,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //anim = GetComponent<Animator>();
-       
+        anim = GetComponent<Animator>();
+        animation = anim.GetComponent<Animation>();
+        anim.SetBool("doIdle", true);
     }
 
 
@@ -94,7 +96,8 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            playerDies();
+            StartCoroutine(WaitForAnimation());
         }
     }
 
@@ -105,8 +108,18 @@ public class PlayerController : MonoBehaviour {
         transform.localScale = theScale;
     }
 
+    void playerDies()
+    {
+        anim.SetTrigger("doDeath");
+        GetComponent<PolygonCollider2D>().offset = new Vector2(GetComponent<PolygonCollider2D>().offset.x, 0.1f);
+    }
     public bool isPlayerAlive(){
         if (playerCurrentHealth <= 0) return false;
         return true;
+    }
+    public IEnumerator WaitForAnimation()
+    {
+        yield return new WaitForSeconds(0.5F);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
