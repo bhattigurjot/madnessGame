@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -86,6 +87,15 @@ public class PlayerController : MonoBehaviour {
 
 
 
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            SceneManager.LoadScene("test 1");
+        }
     }
 
     void playerFlip(){
