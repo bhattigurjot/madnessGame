@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
     void playerDies()
     {
         anim.SetTrigger("doDeath");
-        GetComponent<PolygonCollider2D>().offset = new Vector2(GetComponent<PolygonCollider2D>().offset.x, 0.1f);
+        //GetComponent<PolygonCollider2D>().offset = new Vector2(GetComponent<PolygonCollider2D>().offset.x, 0.1f);
     }
     public bool isPlayerAlive(){
         if (playerCurrentHealth <= 0) return false;
