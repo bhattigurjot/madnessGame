@@ -20,7 +20,11 @@ public class PlayerController : MonoBehaviour {
     private int playerCurrentHealth = 100;
     public GameObject bloodPrefab;
 
-
+    //Camera shake
+    private bool shakeEffect = false;
+    private Vector3 startPos;
+    public float shakeAmount;
+    public float shakeTime;
 
     //Animator
     Animator anim;
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        startPos = Camera.main.transform.position;
         anim = GetComponent<Animator>();
         animation = anim.GetComponent<Animation>();
         anim.SetBool("doIdle", true);
@@ -81,7 +86,7 @@ public class PlayerController : MonoBehaviour {
 
             if (!doubleJump && !isGrounded) doubleJump = true;
         }
-        
+
         //Player shooting 
         /*if (Input.GetButton("Fire1")){
                 anim.SetBool("Shoot",true);
@@ -90,8 +95,18 @@ public class PlayerController : MonoBehaviour {
             anim.SetBool("Shoot", false);
         }*/
 
+        // Camera shake
+        if (shakeEffect)
+        {
+            if (shakeTime > 0)
+            {
+                Vector2 shakePos = Random.insideUnitCircle * shakeAmount;
+                Camera.main.transform.position = new Vector3(startPos.x + shakePos.x, startPos.y + shakePos.y, startPos.z);
+                shakeTime -= Time.deltaTime;
+            }
 
-
+        }
+        
     }
 
 
@@ -99,6 +114,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle")
         {
+            shakeEffect = true;
             playerDies();
             StartCoroutine(WaitForAnimation());
             // Blood splatter - so disabling rigidbody2d and boxcollider2d
