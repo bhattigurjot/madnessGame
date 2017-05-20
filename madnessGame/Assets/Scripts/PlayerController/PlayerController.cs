@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 
 
     //Animator
-    private Animator anim;
+    //private Animator anim;
     
 
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
        
     }
 
@@ -44,14 +44,14 @@ public class PlayerController : MonoBehaviour {
     {
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-        anim.SetBool("Ground", isGrounded);
-        anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
+        //anim.SetBool("Ground", isGrounded);
+        //anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
         if (isGrounded) doubleJump = false;
 
 
         //Controll Player Horizontal Movement on input
         float move = Input.GetAxis("Horizontal");
-        anim.SetFloat("Speed", Mathf.Abs(move));
+        //anim.SetFloat("Speed", Mathf.Abs(move));
         GetComponent<Rigidbody2D>().velocity = new Vector2(move*maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
 
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour {
         
         if((isGrounded==true || !doubleJump)&& Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetBool("Ground", false);
+            //anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
 
             if (!doubleJump && !isGrounded) doubleJump = true;
