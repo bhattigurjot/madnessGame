@@ -1,0 +1,11 @@
+intro music
+level constant music
+jump music
+double jump music (if needed)
+shoot (if needed)
+clamp shutting down (if needed)
+chainsaw sound
+death sound
+game over sound
+light on/off sound
+walking/running sound
