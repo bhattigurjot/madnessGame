@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
     //Player Health and Life
     private int playerMaxHealth = 100;
     private int playerCurrentHealth = 100;
-    
+    public GameObject bloodPrefab;
 
 
 
@@ -55,7 +55,10 @@ public class PlayerController : MonoBehaviour {
         //Controll Player Horizontal Movement on input
         float move = Input.GetAxis("Horizontal");
         //anim.SetFloat("Speed", Mathf.Abs(move));
-        GetComponent<Rigidbody2D>().velocity = new Vector2(move*maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        if (GetComponent<Rigidbody2D>() != null)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        }
 
 
 
@@ -98,6 +101,11 @@ public class PlayerController : MonoBehaviour {
         {
             playerDies();
             StartCoroutine(WaitForAnimation());
+            // Blood splatter - so disabling rigidbody2d and boxcollider2d
+            Destroy(GetComponent<Rigidbody2D>());
+            GetComponent<BoxCollider2D>().enabled = false;
+            GameObject blood = (GameObject)Instantiate(bloodPrefab, new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
+            Destroy(blood, 2.0f);
         }
     }
 
