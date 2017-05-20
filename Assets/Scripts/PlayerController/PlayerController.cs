@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
         if((isGrounded==true || !doubleJump)&& Input.GetKeyDown(KeyCode.Space))
         {
             //anim.SetBool("Ground", false);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0); ;
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
 
             if (!doubleJump && !isGrounded) doubleJump = true;
