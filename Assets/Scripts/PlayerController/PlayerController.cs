@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            SceneManager.LoadScene("test 1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
