@@ -81,7 +81,6 @@ public class ControllerManager : MonoBehaviour {
             }
             else controllerImageObject.GetComponent<SpriteRenderer>().enabled = true;
 
-            //StartCoroutine(WaitForAnimation());
             if (sawOnce == false)
             {
                 StartCoroutine("LerpColor");
