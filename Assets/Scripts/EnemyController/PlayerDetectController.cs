@@ -4,22 +4,47 @@ using UnityEngine;
 
 public class PlayerDetectController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public GameObject shurikenPrefab;
+    public float timeBetweenShots = 0.3333f;
+    public float timeToDestroy = 4.0f;
+    private float timestamp;
+    public bool shoot = false;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Time.time > timestamp && shoot)
+        {
+            timestamp = Time.time + timeBetweenShots;
+            GameObject arrow = (GameObject)Instantiate(shurikenPrefab, transform.position, this.transform.rotation);
+            Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponentInParent<BoxCollider2D>());
+            Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponent<CircleCollider2D>());
+            Destroy(arrow, timeToDestroy);
+
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {        
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Shoot!");
-            //Shoot!
+            shoot = true;
+            transform.LookAt(collision.gameObject.transform);
+            //EnemyController ec = GetComponentInParent<EnemyController>();
+            //ec.isFacingLeft = !(ec.isFacingLeft);            //ec.playerFlip();
+
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            shoot = false;
         }
     }
 }

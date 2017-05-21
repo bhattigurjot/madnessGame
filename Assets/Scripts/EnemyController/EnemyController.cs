@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour {
 
     public bool isFacingLeft { get; set; }
     public float maxSpeed = 10.0f;
+    public bool shouldShoot = false;
+    public bool shouldWalk = false;
 
     //Animator
     Animator anim;
@@ -14,11 +16,20 @@ public class EnemyController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         isFacingLeft = true;
-	}
-    
+        anim = GetComponent<Animator>();
+        animation = anim.GetComponent<Animation>();
+    }
+
+    void Update()
+    {
+        //anim.SetBool("doAttack", shouldShoot);
+        anim.SetBool("doWalk", shouldWalk);
+    }
+
+
     void FixedUpdate()
-    {        
-        if (GetComponent<Rigidbody2D>() != null)
+    {
+        if (GetComponent<Rigidbody2D>() != null && shouldWalk)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2((isFacingLeft ? -1 : 1) * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
         }
