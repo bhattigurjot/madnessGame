@@ -2,10 +2,11 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //Player Controller Vars
-    private bool isFacingRight=true;
+    private bool isFacingRight = true;
     public float maxSpeed = 10.0f;
     private bool isGrounded = false;
     public Transform groundCheck;
@@ -29,18 +30,19 @@ public class PlayerController : MonoBehaviour {
     //Animator
     Animator anim;
     Animation animation;
-    
+
 
 
     //Shooting and Actions
-    
 
 
 
 
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
         startPos = Camera.main.transform.position;
         anim = GetComponent<Animator>();
         animation = anim.GetComponent<Animation>();
@@ -75,11 +77,12 @@ public class PlayerController : MonoBehaviour {
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
-        if((isGrounded==true || !doubleJump)&& Input.GetKeyDown(KeyCode.Space))
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if ((isGrounded == true || !doubleJump) && Input.GetKeyDown(KeyCode.Space))
         {
             //anim.SetBool("Ground", false);
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0); ;
@@ -89,12 +92,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Player shooting 
-        /*if (Input.GetButton("Fire1")){
-                anim.SetBool("Shoot",true);
+        if (Input.GetButton("Fire1"))
+        {
+            anim.SetBool("doAttack", true);
+            GetComponentInChildren<ShooterEmitter>().Shoot();
         }
-        else{
-            anim.SetBool("Shoot", false);
-        }*/
+        else
+        {
+            anim.SetBool("doAttack", false);
+        }
 
         // Camera shake
         if (shakeEffect)
@@ -107,7 +113,7 @@ public class PlayerController : MonoBehaviour {
             }
 
         }
-        
+
     }
 
 
@@ -126,7 +132,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void playerFlip(){
+    void playerFlip()
+    {
         isFacingRight = !isFacingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
@@ -138,7 +145,8 @@ public class PlayerController : MonoBehaviour {
         anim.SetTrigger("doDeath");
         //GetComponent<PolygonCollider2D>().offset = new Vector2(GetComponent<PolygonCollider2D>().offset.x, 0.1f);
     }
-    public bool isPlayerAlive(){
+    public bool isPlayerAlive()
+    {
         if (playerCurrentHealth <= 0) return false;
         return true;
     }
