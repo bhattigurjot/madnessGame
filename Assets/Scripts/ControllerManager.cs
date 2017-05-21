@@ -14,8 +14,10 @@ public class ControllerManager : MonoBehaviour {
     public float smooth = 0.02F;
     Color colorStart, colorEnd;
     Color currentColor;
+    Color alpha;
 
-   
+
+
     public bool sawOnce = false;
 
     // Poor coding - to give a very fast hack fix
@@ -31,6 +33,8 @@ public class ControllerManager : MonoBehaviour {
     {
         controllerImageObject = GameObject.Find("ControllerImage");
         currentColor = controllerImageObject.GetComponent<SpriteRenderer>().color;
+        alpha = currentColor;
+        alpha.a = 0f;
 
         colorStart = controllerImageObject.GetComponent<SpriteRenderer>().color;
         colorEnd = new Color(colorStart.r, colorStart.g, colorStart.b, 0.0F);
@@ -46,37 +50,32 @@ public class ControllerManager : MonoBehaviour {
     {
         if(gameObject.name == "LeftRightTrigger" && !sawOnceLRTrigger)
         {
-            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
+            controllerImageObject.GetComponent<SpriteRenderer>().color = alpha;
             controllerSprite = Resources.Load("LRController", typeof(Sprite)) as Sprite;
             sawOnceLRTrigger = true;
             controllerName = gameObject.name;
         }
         else if (gameObject.name == "JumpTrigger" && !sawOnceJumpTrigger)
         {
-            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
+            controllerImageObject.GetComponent<SpriteRenderer>().color = alpha;
             controllerSprite = Resources.Load("JumpController", typeof(Sprite)) as Sprite;
             sawOnceJumpTrigger = true;
             controllerName = "JumpTrigger";
         }
         else if (gameObject.name == "DoubleJumpTrigger" && !sawOnceDoubleJumpTrigger)
         {
-            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
+            controllerImageObject.GetComponent<SpriteRenderer>().color = alpha;
             controllerSprite = Resources.Load("DoubleJumpController", typeof(Sprite)) as Sprite;
             sawOnceDoubleJumpTrigger = true;
             controllerName = "DoubleJumpTrigger";
         }
         else if (gameObject.name == "FireTrigger" && !sawOnceFireTrigger)
         {
-            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
+            controllerImageObject.GetComponent<SpriteRenderer>().color = alpha;
             controllerSprite = Resources.Load("FireController", typeof(Sprite)) as Sprite;
             sawOnceFireTrigger = true;
             controllerName = "FireTrigger";
         }
-
-
-
-        if (trigger.gameObject.name == "Player")
-        {
  
             controllerImageObject.GetComponent<SpriteRenderer>().sprite = controllerSprite;
             if (gameObject.name != controllerName)
@@ -89,8 +88,6 @@ public class ControllerManager : MonoBehaviour {
             {
                 StartCoroutine("LerpColor");
             }
-
-        }
     }
     IEnumerator LerpColor()
     {
