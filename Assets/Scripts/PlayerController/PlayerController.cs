@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
 
     //Shooting and Actions
-
+    public ShooterEmitter shooter;
 
 
 
@@ -85,8 +85,11 @@ public class PlayerController : MonoBehaviour
         if ((isGrounded == true || !doubleJump) && Input.GetKeyDown(KeyCode.Space))
         {
             //anim.SetBool("Ground", false);
-            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0); ;
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+            if (GetComponent<Rigidbody2D>() != null)
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0); ;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce));
+            }
 
             if (!doubleJump && !isGrounded) doubleJump = true;
         }
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             anim.SetBool("doAttack", true);
-            GetComponentInChildren<ShooterEmitter>().Shoot();
+            //shooter.Shoot();
         }
         else
         {
@@ -130,6 +133,7 @@ public class PlayerController : MonoBehaviour
             GameObject blood = (GameObject)Instantiate(bloodPrefab, new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
             Destroy(blood, 2.0f);
         }
+
     }
 
     void playerFlip()

@@ -5,8 +5,9 @@ using UnityEngine;
 public class ShooterEmitter : MonoBehaviour {
 
     public GameObject shurikenPrefab;
-    public float timeBetweenShots = 2.0f;
+    public float timeBetweenShots = 0.3333f;
     public float timeToDestroy = 4.0f;
+    private float timestamp;
 
     // Use this for initialization
     void Start () {
@@ -15,17 +16,13 @@ public class ShooterEmitter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Shoot();
-        timeBetweenShots -= Time.deltaTime;
-    }
-
-    public void Shoot()
-    {
-        if (timeBetweenShots > 0)
+        if (Time.time > timestamp && Input.GetButton("Fire1"))
         {
+            timestamp = Time.time + timeBetweenShots;
             GameObject arrow = (GameObject)Instantiate(shurikenPrefab, transform.position, this.transform.rotation);
+            Physics2D.IgnoreCollision(arrow.GetComponent<Collider2D>(), GetComponentInParent<Collider2D>());
             Destroy(arrow, timeToDestroy);
+            
         }
-        
     }
 }
