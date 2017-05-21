@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     Text timerText;
     private static int score = 0;
     public float timer;
+    public static int lives = 3;
     //private static int highScore = 0;
 
     void Start()
@@ -26,31 +27,33 @@ public class GameManager : MonoBehaviour {
             timer -= Time.deltaTime;
         }
     }
-    void FixedUpdate()
+
+    public void LoseLive()
     {
-
-
+        lives -= 1;
+        if (lives > 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else
+        {
+            lives = 3;
+            // TODO - set this to game over scene - currently it is setting to first scene in build
+            SceneManager.LoadScene(0);
+        }
     }
+
     public void PlayGameButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
     public void NewLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         score = score + (int)timer;
     }
-    public void ReloadLevel()
-    {
-        //if (lives > 0)
-        //{
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //}
-        //else
-        //{
-        //    SceneManager.LoadScene(1);
-        //}
-    }
+
     public void ScoreManager()
     {
         string showScore = "";

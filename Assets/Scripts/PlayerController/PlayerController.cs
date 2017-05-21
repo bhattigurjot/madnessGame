@@ -36,13 +36,15 @@ public class PlayerController : MonoBehaviour
     //Shooting and Actions
     public ShooterEmitter shooter;
 
-
+    // GameManager
+    GameManager gameManager;
 
 
 
     // Use this for initialization
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         startPos = Camera.main.transform.position;
         anim = GetComponent<Animator>();
         animation = anim.GetComponent<Animation>();
@@ -125,13 +127,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             shakeEffect = true;
-            playerDies();
-            StartCoroutine(WaitForAnimation());
-            // Blood splatter - so disabling rigidbody2d and boxcollider2d
-            Destroy(GetComponent<Rigidbody2D>());
-            GetComponent<BoxCollider2D>().enabled = false;
-            GameObject blood = (GameObject)Instantiate(bloodPrefab, new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
-            Destroy(blood, 2.0f);
+            
+            playerDies();            
         }
 
     }
@@ -147,7 +144,14 @@ public class PlayerController : MonoBehaviour
     void playerDies()
     {
         anim.SetTrigger("doDeath");
-        //GetComponent<PolygonCollider2D>().offset = new Vector2(GetComponent<PolygonCollider2D>().offset.x, 0.1f);
+
+        StartCoroutine(WaitForAnimation());
+
+        // Blood splatter - so disabling rigidbody2d and boxcollider2d
+        Destroy(GetComponent<Rigidbody2D>());
+        GetComponent<BoxCollider2D>().enabled = false;
+        GameObject blood = (GameObject)Instantiate(bloodPrefab, new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
+        Destroy(blood, 2.0f);
     }
     public bool isPlayerAlive()
     {
@@ -157,6 +161,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator WaitForAnimation()
     {
         yield return new WaitForSeconds(0.5F);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameManager.LoseLive();
     }
 }
