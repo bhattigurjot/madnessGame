@@ -14,6 +14,12 @@ public class PlayerDetectController : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter2D(Collider2D collision)    {
-        if (collision.gameObject.name == "Player")        {            //Shoot!        }    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {        
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Shoot!");
+            //Shoot!
+        }
+    }
 }
