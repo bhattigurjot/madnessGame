@@ -24,6 +24,8 @@ public class ControllerManager : MonoBehaviour {
     public static bool sawOnceDoubleJumpTrigger = false;
     public static bool sawOnceFireTrigger = false;
 
+    private string controllerName = "";
+
     // Use this for initialization
     void Start()
     {
@@ -42,34 +44,43 @@ public class ControllerManager : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D trigger)
     {
-        Debug.Log(gameObject.name);
         if(gameObject.name == "LeftRightTrigger" && !sawOnceLRTrigger)
         {
             controllerSprite = Resources.Load("LRController", typeof(Sprite)) as Sprite;
             sawOnceLRTrigger = true;
+            controllerName = gameObject.name;
         }
         else if (gameObject.name == "JumpTrigger" && !sawOnceJumpTrigger)
         {
             controllerSprite = Resources.Load("JumpController", typeof(Sprite)) as Sprite;
             sawOnceJumpTrigger = true;
+            controllerName = "JumpTrigger";
         }
         else if (gameObject.name == "DoubleJumpTrigger" && !sawOnceDoubleJumpTrigger)
         {
             controllerSprite = Resources.Load("DoubleJumpController", typeof(Sprite)) as Sprite;
             sawOnceDoubleJumpTrigger = true;
+            controllerName = "DoubleJumpTrigger";
         }
         else if (gameObject.name == "FireTrigger" && !sawOnceFireTrigger)
         {
             controllerSprite = Resources.Load("FireController", typeof(Sprite)) as Sprite;
             sawOnceFireTrigger = true;
+            controllerName = "FireTrigger";
         }
 
 
 
         if (trigger.gameObject.name == "Player")
         {
+ 
             controllerImageObject.GetComponent<SpriteRenderer>().sprite = controllerSprite;
-            controllerImageObject.GetComponent<SpriteRenderer>().enabled = true;
+            if (gameObject.name != controllerName)
+            {
+                controllerImageObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else controllerImageObject.GetComponent<SpriteRenderer>().enabled = true;
+
             //StartCoroutine(WaitForAnimation());
             if (sawOnce == false)
             {
