@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
     GameManager gameManager;
 
 
+    //Audio
+    public AudioClip impact;
+    AudioSource audio;
+
 
     // Use this for initialization
     void Start()
@@ -49,6 +53,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         animation = anim.GetComponent<Animation>();
         anim.SetBool("doIdle", true);
+
+        audio = GetComponent<AudioSource>();
     }
 
 
@@ -145,6 +151,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
         {
+
+            audio.PlayOneShot(impact, 0.7F);
             shakeEffect = true;
             
             playerDies();            
