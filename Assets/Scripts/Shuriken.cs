@@ -16,4 +16,17 @@ public class Shuriken : MonoBehaviour {
         transform.position += transform.up * Time.deltaTime * speed;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<EnemyController>().enemyHealth -= 1;
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.name == "crate")
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }

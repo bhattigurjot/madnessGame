@@ -9,18 +9,19 @@ public class PlayerDetectController : MonoBehaviour {
     public float timeToDestroy = 4.0f;
     private float timestamp;
     public bool shoot = false;
+    Quaternion t;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        t = transform.rotation * Quaternion.Euler(0, 0, -90f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (Time.time > timestamp && shoot)
         {
             timestamp = Time.time + timeBetweenShots;
-            GameObject arrow = (GameObject)Instantiate(shurikenPrefab, transform.position, this.transform.rotation);
+            GameObject arrow = (GameObject)Instantiate(shurikenPrefab, transform.position, t);
             Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponentInParent<BoxCollider2D>());
             Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponent<CircleCollider2D>());
             Destroy(arrow, timeToDestroy);
@@ -35,7 +36,8 @@ public class PlayerDetectController : MonoBehaviour {
             shoot = true;
             transform.LookAt(collision.gameObject.transform);
             //EnemyController ec = GetComponentInParent<EnemyController>();
-            //ec.isFacingLeft = !(ec.isFacingLeft);            //ec.playerFlip();
+            //ec.isFacingLeft = !(ec.isFacingLeft);
+            //ec.playerFlip();
 
         }
     }

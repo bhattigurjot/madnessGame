@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour {
     public float maxSpeed = 10.0f;
     public bool shouldShoot = false;
     public bool shouldWalk = false;
+    public int enemyHealth = 3;
 
     //Animator
     Animator anim;
@@ -24,6 +25,11 @@ public class EnemyController : MonoBehaviour {
     {
         //anim.SetBool("doAttack", shouldShoot);
         anim.SetBool("doWalk", shouldWalk);
+
+        if (enemyHealth == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
