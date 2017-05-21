@@ -46,24 +46,28 @@ public class ControllerManager : MonoBehaviour {
     {
         if(gameObject.name == "LeftRightTrigger" && !sawOnceLRTrigger)
         {
+            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
             controllerSprite = Resources.Load("LRController", typeof(Sprite)) as Sprite;
             sawOnceLRTrigger = true;
             controllerName = gameObject.name;
         }
         else if (gameObject.name == "JumpTrigger" && !sawOnceJumpTrigger)
         {
+            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
             controllerSprite = Resources.Load("JumpController", typeof(Sprite)) as Sprite;
             sawOnceJumpTrigger = true;
             controllerName = "JumpTrigger";
         }
         else if (gameObject.name == "DoubleJumpTrigger" && !sawOnceDoubleJumpTrigger)
         {
+            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
             controllerSprite = Resources.Load("DoubleJumpController", typeof(Sprite)) as Sprite;
             sawOnceDoubleJumpTrigger = true;
             controllerName = "DoubleJumpTrigger";
         }
         else if (gameObject.name == "FireTrigger" && !sawOnceFireTrigger)
         {
+            controllerImageObject.GetComponent<SpriteRenderer>().color = Color.white;
             controllerSprite = Resources.Load("FireController", typeof(Sprite)) as Sprite;
             sawOnceFireTrigger = true;
             controllerName = "FireTrigger";
