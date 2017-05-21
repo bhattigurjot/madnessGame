@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
 
     GameObject timerCanvasObject;
     GameObject scoreCanvasObject;
+    GameObject livesCanvasObject;
+    Text livesText;
     Text timerText;
     Text scoreText;
     string showScore = "SCORE: 0";
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour {
             timerText = timerCanvasObject.GetComponent<Text>();
             scoreCanvasObject = GameObject.Find("Score");
             scoreText = scoreCanvasObject.GetComponent<Text>();
+            livesCanvasObject = GameObject.Find("Lives");
+            livesText = livesCanvasObject.GetComponent<Text>();
             ScoreManager();
         }
 
@@ -54,6 +58,7 @@ public class GameManager : MonoBehaviour {
             //score = score + (int)timer;
 
             scoreText.text = showScore;
+            livesText.text = "LIVES: " + lives.ToString() + "/3";
         }
 
         
