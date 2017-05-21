@@ -24,7 +24,9 @@ public class ArrowEmitter : MonoBehaviour {
 
         if (timeBetweenShots <= 0)
         {
-            GameObject arrow = (GameObject)Instantiate(arrowPrefab, transform.position, this.transform.rotation);
+            Vector3 position = transform.position;
+            position.z += 0.50f;
+            GameObject arrow = (GameObject)Instantiate(arrowPrefab, position, this.transform.rotation);
             timeBetweenShots = 2f;
             Destroy(arrow, timeToDestroy);
         }
