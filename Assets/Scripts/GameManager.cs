@@ -8,24 +8,55 @@ public class GameManager : MonoBehaviour {
 
 
     GameObject timerCanvasObject;
+    GameObject scoreCanvasObject;
     Text timerText;
-    private static int score = 0;
+    Text scoreText;
+    string showScore = "SCORE: 0";
+    public static bool isGameMenu = true;
+    public static int score = 0;
     public float timer;
     public static int lives = 3;
     //private static int highScore = 0;
 
     void Start()
     {
-        timerCanvasObject = GameObject.Find("Timer");
-        timerText = timerCanvasObject.GetComponent<Text>();
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            isGameMenu = true;
+        }
+        else
+        {
+            isGameMenu = false;
+        }
+
+        if (!isGameMenu)
+        {
+            timerCanvasObject = GameObject.Find("Timer");
+            timerText = timerCanvasObject.GetComponent<Text>();
+            scoreCanvasObject = GameObject.Find("Score");
+            scoreText = scoreCanvasObject.GetComponent<Text>();
+            ScoreManager();
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+        {
+            timerText.enabled = false;
+        }
     }
     void Update()
     {
-        if (timer > 0)
+        if (timer > 0 && SceneManager.GetActiveScene().buildIndex != 0)
         {
             timerText.text = "+" + ((int)timer).ToString();
             timer -= Time.deltaTime;
+
+            //score = score + (int)timer;
+
+            scoreText.text = showScore;
         }
+
+        
     }
 
     public void LoseLive()
@@ -38,33 +69,43 @@ public class GameManager : MonoBehaviour {
         else
         {
             lives = 3;
-            // TODO - set this to game over scene - currently it is setting to first scene in build
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         }
     }
 
     public void PlayGameButton()
     {
+        isGameMenu = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ReplayGame()
+    {
+        score = 0;
+        lives = 3;
+        SceneManager.LoadScene(1);
     }
 
     public void NewLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         score = score + (int)timer;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ScoreManager()
     {
-        string showScore = "";
-
         if(score < 10)
         {
-            showScore = "0" + score.ToString();
+            showScore = "SCORE: " + "0" + score.ToString();
         }
         else
         {
-            showScore = score.ToString();
+            showScore = "SCORE: " + score.ToString();
         }
 
     }

@@ -12,9 +12,13 @@ public class DoorControllerOnGameWon : MonoBehaviour {
     private float elapsedTime = 0;
 
     private GameObject thePlayer;
+    
+    // GameManager
+    GameManager gameManager;
 
     // Use this for initialization
     void Start () {
+        gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
     }
 	
@@ -27,7 +31,8 @@ public class DoorControllerOnGameWon : MonoBehaviour {
             if(elapsedTime >= 2.0f)
             {
                 //Destroy(thePlayer);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                gameManager.NewLevel();
             }
         }
 	}
