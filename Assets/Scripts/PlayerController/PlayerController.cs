@@ -55,6 +55,34 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
+        //isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        ////anim.SetBool("Ground", isGrounded);
+        ////anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
+        //if (isGrounded) doubleJump = false;
+
+
+        ////Controll Player Horizontal Movement on input
+        //float move = Input.GetAxis("Horizontal");
+        ////anim.SetFloat("Speed", Mathf.Abs(move));
+        //if (GetComponent<Rigidbody2D>() != null)
+        //{
+        //    GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        //}
+
+
+
+        ////Face towards the moving direction
+        //if (move > 0 && !isFacingRight) playerFlip();
+        //else if (move < 0 && isFacingRight) playerFlip();
+
+
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         //anim.SetBool("Ground", isGrounded);
         //anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
@@ -75,16 +103,7 @@ public class PlayerController : MonoBehaviour
         if (move > 0 && !isFacingRight) playerFlip();
         else if (move < 0 && isFacingRight) playerFlip();
 
-
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if ((isGrounded == true || !doubleJump) && Input.GetKeyDown(KeyCode.Space))
+        if ((isGrounded == true || !doubleJump) && Input.GetButtonDown("Jump"))
         {
             //anim.SetBool("Ground", false);
             if (GetComponent<Rigidbody2D>() != null)
