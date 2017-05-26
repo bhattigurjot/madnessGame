@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 86f973ded81298947bd86d4bd8bc8e0d
+timeCreated: 1495838867
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: a dripping marker
+  fontNames:
+  - a dripping marker
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

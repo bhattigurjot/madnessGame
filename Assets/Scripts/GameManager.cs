@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
-
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        //Scene scene = SceneManager.GetActiveScene();
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().name == "Instructions")
         {
             isGameMenu = true;
         }
@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour {
         {
             isGameMenu = false;
         }
-
         if (!isGameMenu)
         {
             timerCanvasObject = GameObject.Find("Timer");
@@ -45,12 +44,12 @@ public class GameManager : MonoBehaviour {
 
         if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
-            timerText.enabled = false;
+            if (!isGameMenu) timerText.enabled = false;
         }
     }
     void Update()
     {
-        if (timer > 0 && SceneManager.GetActiveScene().buildIndex != 0)
+        if (timer > 0 && SceneManager.GetActiveScene().buildIndex != 0 && SceneManager.GetActiveScene().name != "Instructions")
         {
             timerText.text = "+" + ((int)timer).ToString();
             timer -= Time.deltaTime;
@@ -59,9 +58,7 @@ public class GameManager : MonoBehaviour {
 
             scoreText.text = showScore;
             livesText.text = "LIVES: " + lives.ToString() + "/3";
-        }
-
-        
+        }       
     }
 
     public void LoseLive()
@@ -113,5 +110,9 @@ public class GameManager : MonoBehaviour {
             showScore = "SCORE: " + score.ToString();
         }
 
+    }
+    public void changeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
