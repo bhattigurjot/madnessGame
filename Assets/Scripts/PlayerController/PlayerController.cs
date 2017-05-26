@@ -151,7 +151,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
         {
-
             audio.PlayOneShot(impact, 0.7F);
             shakeEffect = true;
             

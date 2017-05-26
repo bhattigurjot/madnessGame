@@ -23,10 +23,9 @@ public class Shuriken : MonoBehaviour {
             collision.gameObject.GetComponent<EnemyController>().enemyHealth -= 1;
             Destroy(gameObject);
         }
-        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Crate")
+        else if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Non-Obstacle")
         {
             Destroy(gameObject);
         }
     }
-
 }
