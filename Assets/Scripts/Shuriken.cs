@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Shuriken : MonoBehaviour {
 
-    public float speed = 6.0f;
+    public AudioClip shurikenAudioClip;
+    public float speed;
+    AudioSource shurikenAudio;
 
 	// Use this for initialization
 	void Start () {
-		
+        shurikenAudio = GetComponent<AudioSource>();
+        shurikenAudio.PlayOneShot(shurikenAudioClip, 0.50f);
 	}
 	
 	// Update is called once per frame

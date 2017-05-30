@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public float jumpForce = 700.0f;
     private bool doubleJump = false;
-
+    private bool isPlayerAliveBool;
 
     //Player Health and Life
     private int playerMaxHealth = 100;
@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("doIdle", true);
 
         audio = GetComponent<AudioSource>();
+        isPlayerAliveBool = true;
+
     }
 
 
@@ -89,6 +91,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isPlayerAliveBool)
+        {
+            GameObject audioSourceHolder = GameObject.Find("AudioSourceHolder");
+            Destroy(audioSourceHolder);
+        }
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
         //anim.SetBool("Ground", isGrounded);
         //anim.SetFloat("vSpeed", GetComponent<Rigidbody2D>().velocity.y);
@@ -141,20 +148,21 @@ public class PlayerController : MonoBehaviour
                 Camera.main.transform.position = new Vector3(startPos.x + shakePos.x, startPos.y + shakePos.y, startPos.z);
                 shakeTime -= Time.deltaTime;
             }
-
         }
-
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
+        if (isPlayerAliveBool)
         {
-            audio.PlayOneShot(impact, 0.7F);
-            shakeEffect = true;
-            
-            playerDies();            
+            if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Enemy")
+            {
+                audio.PlayOneShot(impact, 0.7F);
+                shakeEffect = true;
+                playerDies();
+            }
+
         }
 
     }
@@ -171,7 +179,9 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetTrigger("doDeath");
 
+        isPlayerAliveBool = false;
         StartCoroutine(WaitForAnimation());
+
 
         // Blood splatter - so disabling rigidbody2d and boxcollider2d
         Destroy(GetComponent<Rigidbody2D>());

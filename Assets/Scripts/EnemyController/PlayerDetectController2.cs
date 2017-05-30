@@ -11,6 +11,9 @@ public class PlayerDetectController2 : MonoBehaviour {
     public bool shoot = false;
     Quaternion t;
 
+    public AudioClip fireballAudioClip;
+    AudioSource fireballAudio;
+
     // Use this for initialization
     void Start () {
         t = transform.rotation * Quaternion.Euler(0, 0, -90f);
@@ -22,6 +25,8 @@ public class PlayerDetectController2 : MonoBehaviour {
         {
             timestamp = Time.time + timeBetweenShots;
             GameObject arrow = (GameObject)Instantiate(shurikenPrefab, transform.position, t);
+            fireballAudio = GetComponent<AudioSource>();
+            fireballAudio.PlayOneShot(fireballAudioClip, 0.50f);
             Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponentInParent<BoxCollider2D>());
             Physics2D.IgnoreCollision(arrow.GetComponent<BoxCollider2D>(), GetComponent<CircleCollider2D>());
             Destroy(arrow, timeToDestroy);

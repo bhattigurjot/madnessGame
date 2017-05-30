@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
-    public bool isFacingLeft { get; set; }
+    public bool isFacingLeft;
     public float maxSpeed = 10.0f;
     public bool shouldShoot = false;
     public bool alwaysShoot = false;

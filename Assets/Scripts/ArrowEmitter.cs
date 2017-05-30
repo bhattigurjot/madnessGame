@@ -5,8 +5,8 @@ using UnityEngine;
 public class ArrowEmitter : MonoBehaviour {
 
     public GameObject arrowPrefab;
-    public float timeBetweenShots = 2.0f;
-    public float timeToDestroy = 4.0f;
+    public float timeBetweenShots;
+    public float timeToDestroy;
 
     // Use this for initialization
     void Start () {
